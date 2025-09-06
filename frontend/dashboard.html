@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Healthcare Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-heartbeat"></i> HealthCare Pro</h1>
+                <p>Management System</p>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <h3 id="userName">Welcome, User</h3>
+                    <p>Administrator</p>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <ul>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" data-tab="patients">
+                            <i class="fas fa-user-injured nav-icon"></i>
+                            Patients
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-tab="doctors">
+                            <i class="fas fa-user-md nav-icon"></i>
+                            Doctors
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-tab="mappings">
+                            <i class="fas fa-link nav-icon"></i>
+                            Mappings
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn btn-danger w-full">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div>
+                    <h2 id="pageTitle">Patient Management</h2>
+                    <p class="text-gray-500">Manage your patients, doctors, and their relationships</p>
+                </div>
+                <div class="header-actions">
+                    <button id="addPatientBtn" class="btn btn-primary" style="display: none;">
+                        <i class="fas fa-plus"></i>
+                        Add Patient
+                    </button>
+                    <button id="addDoctorBtn" class="btn btn-primary" style="display: none;">
+                        <i class="fas fa-plus"></i>
+                        Add Doctor
+                    </button>
+                    <button id="addMappingBtn" class="btn btn-primary" style="display: none;">
+                        <i class="fas fa-plus"></i>
+                        Create Mapping
+                    </button>
+                </div>
+            </header>
+
+            <!-- Message Container -->
+            <div id="messageContainer"></div>
+
+            <!-- Patients Section -->
+            <section id="patients" class="tab-content active">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-injured"></i>
+                            Patient Management
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="patientList" class="data-list">
+                            <!-- Patients will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Doctors Section -->
+            <section id="doctors" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-md"></i>
+                            Doctor Management
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="doctorList" class="data-list">
+                            <!-- Doctors will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mappings Section -->
+            <section id="mappings" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-link"></i>
+                            Patient-Doctor Mappings
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="mappingList" class="data-list">
+                            <!-- Mappings will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Patient Modal -->
+    <div id="patientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="patientModalTitle" class="modal-title">Add Patient</h3>
+                <button class="close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="patientForm">
+                    <div class="form-group">
+                        <label for="patientName">Patient Name</label>
+                        <input type="text" id="patientName" name="name" placeholder="Enter patient name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientAge">Age</label>
+                        <input type="number" id="patientAge" name="age" placeholder="Enter age" min="1" max="150" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientDisease">Disease/Condition</label>
+                        <input type="text" id="patientDisease" name="disease" placeholder="Enter disease or condition" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary w-full">
+                            <i class="fas fa-save"></i>
+                            Save Patient
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Modal -->
+    <div id="doctorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="doctorModalTitle" class="modal-title">Add Doctor</h3>
+                <button class="close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="doctorForm">
+                    <div class="form-group">
+                        <label for="doctorName">Doctor Name</label>
+                        <input type="text" id="doctorName" name="name" placeholder="Enter doctor name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="doctorSpecialization">Specialization</label>
+                        <input type="text" id="doctorSpecialization" name="specialization" placeholder="Enter specialization" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary w-full">
+                            <i class="fas fa-save"></i>
+                            Save Doctor
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mapping Modal -->
+    <div id="mappingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create Patient-Doctor Mapping</h3>
+                <button class="close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="mappingForm">
+                    <div class="form-group">
+                        <label for="mappingPatient">Select Patient</label>
+                        <select id="mappingPatient" name="patient_id" required>
+                            <option value="">Select Patient</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mappingDoctor">Select Doctor</label>
+                        <select id="mappingDoctor" name="doctor_id" required>
+                            <option value="">Select Doctor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary w-full">
+                            <i class="fas fa-link"></i>
+                            Create Mapping
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
