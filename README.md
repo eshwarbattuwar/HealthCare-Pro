@@ -1,4 +1,4 @@
-# Healthcare Management System
+# HealthCare Pro
 
 A complete full-stack Healthcare Management System built with Node.js, Express, PostgreSQL, and vanilla JavaScript.
 
@@ -42,7 +42,7 @@ Before you begin, ensure you have the following installed:
 
 ```bash
 # If you have the project files, navigate to the project directory
-cd healthcare-management-system
+cd healthcare
 ```
 
 ### 2. Install Dependencies
